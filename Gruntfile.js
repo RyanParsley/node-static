@@ -23,15 +23,26 @@ module.exports = function(grunt) {
         }]
       }
     },
+    concat: {
+      options: {
+        separator: ';',
+      },
+      dist: {
+        src: ['src/scripts/main.js'],
+        dest: 'dist/assets/scripts/main.js',
+      },
+    },
     pug: {
       compile: {
         options: {
           data: {
+            title: "Data Works!",
+            nav: grunt.file.readJSON('src/data/nav.json'),
             debug: false
           }
         },
         files: [ {
-          cwd: "src",
+          cwd: "src/pages",
           src: "**/*.pug",
           dest: "dist",
           expand: true,
@@ -45,6 +56,6 @@ module.exports = function(grunt) {
   require('load-grunt-tasks')(grunt);
 
   // Default task(s).
-  grunt.registerTask('default', ['pug', 'sass']);
+  grunt.registerTask('default', ['pug', 'sass', 'concat']);
 
 };
